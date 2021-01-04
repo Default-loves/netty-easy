@@ -62,21 +62,13 @@ public class ByteBufDemo {
         System.out.println("------" + step + "-----");
 
         System.out.println("readerIndex(): " + buffer.readerIndex());
-
         System.out.println("writerIndex(): " + buffer.writerIndex());
-
         System.out.println("isReadable(): " + buffer.isReadable());
-
         System.out.println("isWritable(): " + buffer.isWritable());
-
         System.out.println("readableBytes(): " + buffer.readableBytes());
-
         System.out.println("writableBytes(): " + buffer.writableBytes());
-
         System.out.println("maxWritableBytes(): " + buffer.maxWritableBytes());
-
         System.out.println("capacity(): " + buffer.capacity());
-
         System.out.println("maxCapacity(): " + buffer.maxCapacity());
 
     }

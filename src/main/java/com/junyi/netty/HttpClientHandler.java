@@ -5,6 +5,7 @@ import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.handler.codec.http.HttpContent;
+import io.netty.util.CharsetUtil;
 import io.netty.util.concurrent.EventExecutorGroup;
 
 /**
@@ -19,7 +20,7 @@ public class HttpClientHandler extends ChannelInboundHandlerAdapter {
         if (msg instanceof HttpContent) {
             HttpContent content = (HttpContent) msg;
             ByteBuf buf = content.content();
-            System.out.println(buf.toString(io.netty.util.CharsetUtil.UTF_8));
+            System.out.println(buf.toString(CharsetUtil.UTF_8));
             buf.release();
         }
     }
