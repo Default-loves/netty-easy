@@ -23,14 +23,11 @@ public class aaa {
 
     @Test
     public void test() {
-        User user = recycler.get();
-        user.setId(1);
-        user.setDescription("apple");
-        user.recycle();
-
-        User user2 = recycler.get();
-        log.info("{}", user2.getDescription());
-        log.info("{}", user.equals(user2));
+        long a = 1;
+        for (int i = 1; i <= 20; i++) {
+             a *= i;
+        }
+        log.info(a + "");
     }
 
 }
