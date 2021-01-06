@@ -23,11 +23,7 @@ public class aaa {
 
     @Test
     public void test() {
-        long a = 1;
-        for (int i = 1; i <= 20; i++) {
-             a *= i;
-        }
-        log.info(a + "");
+        log.info(System.getProperties().toString());
     }
 
 }
