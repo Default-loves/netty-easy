@@ -108,3 +108,8 @@ p.addLast("aggregator", new HttpObjectAggregator(1024 * 1024));
 p.addLast("handler", new HttpRequestHandler());
 ```
 
+
+
+### Netty中的内存分配
+
+每个 PoolChunk 的默认大小为 16M
