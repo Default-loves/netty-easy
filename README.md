@@ -113,3 +113,20 @@ p.addLast("handler", new HttpRequestHandler());
 ### Netty中的内存分配
 
 每个 PoolChunk 的默认大小为 16M
+
+每个Page的默认大小为8KB，注意Netty中的Page和内存中的Page是不一样的
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
