@@ -26,19 +26,31 @@ public class aaa {
 
     @Test
     public void test() {
-        for (int i = 1; i <= 3; i++) {
-            int index = i;
-            new Thread(() -> MPSC_ARRAY_QUEUE.offer("data" + index), "thread" + index).start();
-        }
-        try {
-            Thread.sleep(1000L);
-            MPSC_ARRAY_QUEUE.add("data3"); // 入队操作，队列满则抛出异常
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        System.out.println("队列大小：" + MPSC_ARRAY_QUEUE.size() + ", 队列容量：" + MPSC_ARRAY_QUEUE.capacity());
-        System.out.println("出队：" + MPSC_ARRAY_QUEUE.remove()); // 出队操作，队列为空则抛出异常
-        System.out.println("出队：" + MPSC_ARRAY_QUEUE.poll()); // 出队操作，队列为空则返回 NULL
+        String s = ""
     }
 
+    public int minDeletionSize(String[] A) {
+        int n = A.length;
+        int m = A[0].length();
+        // point[i] = true，说明A[j]字符串不再需要和A[j+1]字符串比较了
+        boolean[] point = new boolean[n-1];
+        int ans = 0;
+
+        search:
+        for (int j = 0; j < m; ++j) {
+            for (int i = 0; i < n-1; ++i) {
+                if (!point[i] && A[i].charAt(j) > A[i+1].charAt(j)) {   // 降序序列，那么需要删除该列，统计结果加1
+                    ans++;
+                    continue ;
+                }
+            }
+            // 更新 point 数组
+            // 需要注意的是，true值的个数应该是逐渐增加的，即不能够判断后赋值为 false
+            for (int i = 0; i < n-1; ++i) {
+                if (A[i].charAt(j) < A[i+1].charAt(j))
+                    point[i] = true;
+            }
+        }
+        return ans;
+    }
 }
