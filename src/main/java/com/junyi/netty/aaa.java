@@ -24,10 +24,7 @@ public class aaa {
 
     public static final MpscArrayQueue<String> MPSC_ARRAY_QUEUE = new MpscArrayQueue<>(2);
 
-    @Test
-    public void test() {
-        String s = ""
-    }
+
 
     public int minDeletionSize(String[] A) {
         int n = A.length;
