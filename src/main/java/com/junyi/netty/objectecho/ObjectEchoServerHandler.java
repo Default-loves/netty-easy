@@ -16,8 +16,10 @@
 package com.junyi.netty.objectecho;
 
 import com.alibaba.fastjson.JSON;
+import com.junyi.netty.entity.Request;
+import com.junyi.netty.entity.Response;
 import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.ChannelInboundHandlerAdapter;
+import io.netty.channel.SimpleChannelInboundHandler;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -25,23 +27,23 @@ import lombok.extern.slf4j.Slf4j;
  * constructor was called.
  */
 @Slf4j
-public class ObjectEchoServerHandler extends ChannelInboundHandlerAdapter {
+public class ObjectEchoServerHandler extends SimpleChannelInboundHandler<Request> {
 
     @Override
-    public void channelRead(ChannelHandlerContext ctx, Object msg) {
-        // Echo back the received object to the client.
+    public void channelActive(ChannelHandlerContext ctx) throws Exception {
+        log.info("hello");
+        super.channelActive(ctx);
+    }
+
+    @Override
+    protected void channelRead0(ChannelHandlerContext ctx, Request msg) throws Exception {
         log.info("receive message: {}", JSON.toJSONString(msg));
-        ctx.write(msg);
+        Response response = Response.builder().code(200).message("OK").build();
+        ctx.writeAndFlush(response);
     }
 
     @Override
-    public void channelReadComplete(ChannelHandlerContext ctx) {
-        ctx.flush();
-    }
-
-    @Override
-    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
-        cause.printStackTrace();
-        ctx.close();
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+        log.error("error: ", cause);
     }
 }

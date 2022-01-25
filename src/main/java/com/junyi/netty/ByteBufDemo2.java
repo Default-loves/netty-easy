@@ -1,7 +1,5 @@
 package com.junyi.netty;
 
-import io.netty.buffer.ByteBuf;
-import io.netty.buffer.ByteBufAllocator;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 

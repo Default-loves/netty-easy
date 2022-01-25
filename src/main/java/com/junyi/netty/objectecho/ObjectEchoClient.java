@@ -15,40 +15,31 @@
  */
 package com.junyi.netty.objectecho;
 
+import com.alibaba.fastjson.JSON;
+import com.junyi.netty.entity.Request;
 import io.netty.bootstrap.Bootstrap;
-import io.netty.channel.ChannelInitializer;
-import io.netty.channel.ChannelPipeline;
-import io.netty.channel.EventLoopGroup;
+import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.codec.serialization.ClassResolvers;
 import io.netty.handler.codec.serialization.ObjectDecoder;
 import io.netty.handler.codec.serialization.ObjectEncoder;
-import io.netty.handler.ssl.SslContext;
-import io.netty.handler.ssl.SslContextBuilder;
-import io.netty.handler.ssl.util.InsecureTrustManagerFactory;
+import lombok.extern.slf4j.Slf4j;
+
+import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Modification of EchoClient which utilizes Java object serialization.
  */
+@Slf4j
 public final class ObjectEchoClient {
 
-    static final boolean SSL = System.getProperty("ssl") != null;
-    static final String HOST = System.getProperty("host", "127.0.0.1");
-    static final int PORT = Integer.parseInt(System.getProperty("port", "8007"));
-    static final int SIZE = Integer.parseInt(System.getProperty("size", "256"));
+    static final String HOST ="127.0.0.1";
+    static final int PORT = 8007;
 
     public static void main(String[] args) throws Exception {
-        // Configure SSL.
-        final SslContext sslCtx;
-        if (SSL) {
-            sslCtx = SslContextBuilder.forClient()
-                .trustManager(InsecureTrustManagerFactory.INSTANCE).build();
-        } else {
-            sslCtx = null;
-        }
-
         EventLoopGroup group = new NioEventLoopGroup();
         try {
             Bootstrap b = new Bootstrap();
@@ -58,18 +49,25 @@ public final class ObjectEchoClient {
                 @Override
                 public void initChannel(SocketChannel ch) throws Exception {
                     ChannelPipeline p = ch.pipeline();
-                    if (sslCtx != null) {
-                        p.addLast(sslCtx.newHandler(ch.alloc(), HOST, PORT));
-                    }
                     p.addLast(
                             new ObjectEncoder(),
                             new ObjectDecoder(ClassResolvers.cacheDisabled(null)),
                             new ObjectEchoClientHandler());
                 }
              });
-
             // Start the connection attempt.
-            b.connect(HOST, PORT).sync().channel().closeFuture().sync();
+            ChannelFuture channelFuture = b.connect(HOST, PORT).sync();
+            Channel channel = channelFuture.channel();
+            if (channelFuture.isSuccess()) {
+                System.out.println("start cline");
+            }
+
+            while (true) {
+                Request request = Request.builder().id(UUID.randomUUID().toString()).msg("ab").build();
+                channel.writeAndFlush(request);
+                log.info("send message: {}", JSON.toJSONString(request));
+                TimeUnit.SECONDS.sleep(10);
+            }
         } finally {
             group.shutdownGracefully();
         }

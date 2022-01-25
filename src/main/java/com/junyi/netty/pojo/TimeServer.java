@@ -10,10 +10,9 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 
 /**
+ * 使用 POJO 而不是 ByteBuf
  * @time: 2021/1/5 9:40
- * @version: 1.0
  * @author: junyi Xu
- * @description: 使用 POJO 而不是 ByteBuf
  */
 public class TimeServer {
 
@@ -49,5 +48,6 @@ public class TimeServer {
 
     public static void main(String[] args) throws Exception {
         new TimeServer().run(port);
+
     }
 }

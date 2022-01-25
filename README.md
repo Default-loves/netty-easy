@@ -1,4 +1,17 @@
-# Lean Netty
+### 前言
+
+使用的`netty`版本：
+
+```java
+<dependency>
+    <groupId>io.netty</groupId>
+    <artifactId>netty-all</artifactId>
+    <version>4.1.69.Final</version>
+</dependency>
+```
+
+
+
 ### 资源
 
 公众号资源：https://github.com/fuzhengwei/itstack-demo-netty
@@ -25,7 +38,7 @@ Netty是一个高性能的异步事件驱动的网络通信框架，Netty对JDK�
   - Netty通过复用对象，避免频繁创建和销毁对象的开销。
   - 零拷贝技术。减少了在缓冲区之间的拷贝
 
-### Linux的5中IO模型
+### Linux的5种IO模型
 
 - 同步阻塞IO（BIO）
 - 同步非阻塞IO（NIO）
@@ -37,13 +50,19 @@ Netty是一个高性能的异步事件驱动的网络通信框架，Netty对JDK�
 
 事件分发器（Event Dispather），它负责将读写事件分发给对应的读写事件处理器（Event Handler）
 
-
+// TODO：01 | 初识 Netty：为什么 Netty 这么流行？
 
 
 
 ### Netty整体架构
 
 ![components](F:\GithubMy\my\netty-easy\pic\components.png)
+
+
+
+
+
+### Bootstrap
 
 
 

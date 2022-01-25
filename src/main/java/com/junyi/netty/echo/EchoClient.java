@@ -20,9 +20,14 @@ import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import io.netty.handler.codec.string.StringDecoder;
+import io.netty.handler.codec.string.StringEncoder;
 import io.netty.handler.ssl.SslContext;
 import io.netty.handler.ssl.SslContextBuilder;
 import io.netty.handler.ssl.util.InsecureTrustManagerFactory;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 
 /**
  * Sends one message when a connection is open and echoes back any received
@@ -61,7 +66,8 @@ public final class EchoClient {
                      if (sslCtx != null) {
                          p.addLast(sslCtx.newHandler(ch.alloc(), HOST, PORT));
                      }
-                     //p.addLast(new LoggingHandler(LogLevel.INFO));
+                     ch.pipeline().addLast(new StringEncoder());
+                     ch.pipeline().addLast(new StringDecoder());
                      p.addLast(new EchoClientHandler());
                  }
              });
@@ -69,8 +75,12 @@ public final class EchoClient {
             // Start the client.
             ChannelFuture f = b.connect(HOST, PORT).sync();
 
-            // Wait until the connection is closed.
-            f.channel().closeFuture().sync();
+            BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+            while (true) {
+                String input = in.readLine();
+                f.channel().writeAndFlush(input);
+            }
+
         } finally {
             // Shut down the event loop to terminate all threads.
             group.shutdownGracefully();

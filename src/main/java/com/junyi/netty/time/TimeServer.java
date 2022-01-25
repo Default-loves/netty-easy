@@ -1,6 +1,5 @@
 package com.junyi.netty.time;
 
-import com.junyi.netty.echo.EchoServerHandler;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;

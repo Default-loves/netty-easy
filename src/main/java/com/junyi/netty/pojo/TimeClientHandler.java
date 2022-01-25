@@ -1,12 +1,9 @@
 package com.junyi.netty.pojo;
 
 import com.junyi.netty.entity.UnixTime;
-import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import lombok.extern.slf4j.Slf4j;
-
-import java.util.Date;
 
 /**
  * @time: 2021/1/5 11:02
