@@ -31,7 +31,7 @@ Netty是一个高性能的异步事件驱动的网络通信框架，Netty对JDK�
 ### 优点
 
 - 易用性
-- 性能很好
+- 高性能、低延迟
 - 稳定
 - 可扩展
 - 资源消耗低
@@ -50,21 +50,13 @@ Netty是一个高性能的异步事件驱动的网络通信框架，Netty对JDK�
 
 事件分发器（Event Dispather），它负责将读写事件分发给对应的读写事件处理器（Event Handler）
 
-// TODO：01 | 初识 Netty：为什么 Netty 这么流行？
+如果你需要做面向 TCP 的网络应用开发，那么 Netty 才是你最佳的选择。
 
 
 
 ### Netty整体架构
 
 ![components](F:\GithubMy\my\netty-easy\pic\components.png)
-
-
-
-
-
-### Bootstrap
-
-
 
 
 
